@@ -21,5 +21,13 @@ public class BasePage {
         BasePage.driver = driver;
     }
 
-    
+    public void navegarUrl(String url){
+        driver.get(url);
+    }
+
+    public static void cerrarNavegador(){
+        driver.close();
+    }
+
+
 }

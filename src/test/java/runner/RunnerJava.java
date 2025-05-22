@@ -1,9 +1,11 @@
 package runner;
 
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+//import pages.BasePage;
 
 
 @RunWith(Cucumber.class)
@@ -12,5 +14,8 @@ import io.cucumber.junit.CucumberOptions;
     plugin = { "pretty", "html:target/cucumber-reports" })
 
 public class RunnerJava{
-    
+    @AfterClass
+    public static void cleanDriver(){
+        //BasePage.cerrarNavegador();
+    }
 }

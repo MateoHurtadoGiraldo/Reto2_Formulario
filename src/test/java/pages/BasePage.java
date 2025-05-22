@@ -2,9 +2,12 @@ package pages;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
@@ -17,16 +20,66 @@ public class BasePage {
         driver.manage().window().maximize(); // Maximiza la pantalla 
     }
 
+    // Constructor
     public BasePage(WebDriver driver) { 
         BasePage.driver = driver;
     }
 
+    // Metodo para navegar a una URL 
     public void navegarUrl(String url){
         driver.get(url);
     }
 
+    // Metodo para cerrar el navegador
     public static void cerrarNavegador(){
         driver.close();
+    }
+
+    // Localizador de ubica a un elemento por su Xpath
+    private WebElement econtrarElementoXpath(String localizador){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(localizador)));  
+    }
+
+    // Localizador de ubica a un elemento por su Id
+    private WebElement econtrarElementoId(String localizador){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.id(localizador)));  
+    }
+
+    // Localizador de ubica a un elemento por su Nombre
+    private WebElement econtrarElementoName(String localizador){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.name(localizador)));  
+    }
+
+    // Localizador de ubica a un elemento por su Selector Css
+    private WebElement econtrarElementoCss(String localizador){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(localizador)));  
+    }
+
+    // Metodo para clicar un elemento por su Xpath
+    public void clicarElementoXpath(String localizador){
+        econtrarElementoXpath(localizador);
+    }
+
+    // Metodo para clicar un elemento por su Id
+    public void clicarElementoXpathId(String localizador){
+        econtrarElementoId(localizador);
+    }
+
+    // Metodo para clicar un elemento por su Nombre
+    public void clicarElementoName(String localizador){
+        econtrarElementoName(localizador);
+    }
+
+    // Metodo para clicar un elemento por su Selector Css
+    public void clicarElementoCss(String localizador){
+        econtrarElementoCss(localizador);
+    }
+
+    // Metodo para escribir
+    public void escribir(String localizador, String texto){
+        clicarElementoName(localizador);
+        econtrarElementoName(localizador).clear();
+        econtrarElementoName(localizador).sendKeys(texto);
     }
 
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Probar la funcionalidad del formulario web." tests="1" skipped="0" failures="0" errors="0" timestamp="2025-05-21T21:09:09.768Z" hostname="DESKTOP-5OEPK45" time="5.418">
+  <properties/>
+  <testcase name="Como un usuario, cuando ingreso todos los datos correctos en el formulario, quiero ver si no salta ninguna alerta" classname="Probar la funcionalidad del formulario web." time="5.418"/>
+  <system-out><![CDATA[
+@Formulario
+Scenario: Como un usuario, cuando ingreso todos los datos correctos en el formulario, quiero ver si no salta ninguna alerta ?[90m# src/test/resources/Formulario.feature:4?[0m
+  ?[32mGiven ?[0m?[32mel usuario navega a la pagina del formulario?[0m                                                                        ?[90m# steps.FormularioSteps.navegarFormulario()?[0m
+]]></system-out>
+  <system-err><![CDATA[may. 21, 2025 4:09:11 P. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 136
+may. 21, 2025 4:09:11 P. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 136.0.7103.114. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.21.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+</testsuite>

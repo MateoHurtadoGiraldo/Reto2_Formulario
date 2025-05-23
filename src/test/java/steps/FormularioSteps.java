@@ -12,23 +12,48 @@ public class FormularioSteps {
         formulario.navegarA();
     }
 
-    @When("^el usuario ingresa datos válidos en todos los campos$")
+    @When("^ingresa datos válidos en todos los campos$")
     public void ingresarDatosCompletos(){
         formulario.textoCamposCompleta();
     }
 
-    @When("^el usuario no ingresa datos en los campos$")
+    @When("^no ingresa datos en los campos$")
     public void noIngresaDatos(){
         formulario.sinTextoCampos();
     }
 
-    @When("^el usuario ingresa los datos menos el nombre en los campos$")
+    @When("^ingresa los datos menos el nombre en los campos$")
     public void datoFaltanteNombre(){
         formulario.sinTextoNombre();
     }
 
-    @When("^el usuario no ingresa @ en el email$")
+    @When("^no ingresa @ en el email$")
     public void datoFaltanteEmail(){
         formulario.datosFaltanteEmail();
+    }
+
+    // @When("^visualiza los textos del formulario$")
+    // public void obtenerTexto(){
+        
+    // }
+
+    @Then("^no debería aparecer ninguna alerta$")
+    public void validacionNoAlertas(){
+        formulario.noAlertas();
+    }
+
+    @Then("^debería aparecer una alerta en los campos principales$")
+    public void validarAlertas(){
+        formulario.alertaTodosCampos();
+    }
+    
+    @Then("^debería aparecer una alerta en el campo de nombre$")
+    public void validarAlertaNombre(){
+        formulario.visibiMensaNombre();
+    }
+
+    @Then("^debería aparecer una alerta en el campo de email$")
+    public void validarAlertaEmail(){
+        formulario.visibiMensaEmail();
     }
 }

@@ -22,20 +22,15 @@ public class FormularioSteps {
         formulario.sinTextoCampos();
     }
 
-    @When("^ingresa los datos menos el nombre en los campos$")
+    @When("^ingresa el nombre con 3 letras$")
     public void datoFaltanteNombre(){
-        formulario.sinTextoNombre();
+        formulario.textoNombre();
     }
 
-    @When("^no ingresa @ en el email$")
-    public void datoFaltanteEmail(){
-        formulario.datosFaltanteEmail();
+    @When("^ingresa el email (.*)$")
+    public void datoFaltanteEmail(String email){
+        formulario.datosFaltanteEmail(email);
     }
-
-    // @When("^visualiza los textos del formulario$")
-    // public void obtenerTexto(){
-        
-    // }
 
     @Then("^no debería aparecer ninguna alerta$")
     public void validacionNoAlertas(){
@@ -55,5 +50,10 @@ public class FormularioSteps {
     @Then("^debería aparecer una alerta en el campo de email$")
     public void validarAlertaEmail(){
         formulario.visibiMensaEmail();
+    }
+
+    @Then("^todos los textos del formulario deberian tener la ortografía correcta$")
+    public void validarOrtografia(){
+        formulario.validarTexto();
     }
 }

@@ -84,25 +84,39 @@ public class BasePage {
     }
 
     // Metodo para validar que un elemento es visible
-    public void elementoVisible(String locator,String mensaje){
-    String textoEsperado= mensaje;
-    String textoEncontrado = econtrarElementoCss(locator).getText();
-
-    Assert.assertTrue(textoEncontrado.contains(textoEsperado));
+    public void elementoVisible(String locator, String mensaje) {
+        String textoEsperado = mensaje;
+        String textoEncontrado = econtrarElementoCss(locator).getText();
+        
+        Assert.assertTrue(textoEncontrado.contains(textoEsperado));
     }
 
     // Metodo para validad que un elemento no es visible
-    public void elementoNoVisible(String locator,String mensaje){
-    String textoEsperado= mensaje;
-    String textoEncontrado = econtrarElementoCss(locator).getText();
+    public void elementoNoVisible(String locator, String mensaje) {
+        String textoEsperado = mensaje;
+        String textoEncontrado = econtrarElementoCss(locator).getText();
 
-    Assert.assertFalse(textoEncontrado.contains(textoEsperado));
+        Assert.assertFalse(textoEncontrado.contains(textoEsperado));
+    }
+    // Metodo que valida si un elemento web esta presente
+    public void estaPresente(String locator) {
+        WebElement elemento = econtrarElementoCss(locator);
+
+        Assert.assertTrue(elemento.isDisplayed());
+    }
+    
+    // Metodo que valida si un elemento web esta no presente
+    public void noPresente(String locator) {
+        WebElement elemento = econtrarElementoCss(locator);
+
+        Assert.assertFalse(elemento.isDisplayed());
     }
 
-    // Metodo que valida si un elemento web esta presente 
-    public void noPresente(String locator){
-       WebElement elemento = econtrarElementoCss(locator);
+    // Metodo para Validar que las palabras son las mismas
+    public void encontrarTexto(String localizador, String texto){
+        String textoEsperado = texto;
+        String textoEncontrado = econtrarElementoXpath(localizador).getText();
 
-       Assert.assertFalse(elemento.isDisplayed());
+        Assert.assertEquals(textoEsperado, textoEncontrado);
     }
 }

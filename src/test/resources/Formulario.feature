@@ -6,6 +6,7 @@ Feature: Probar la funcionalidad del formulario web.
         Given el usuario navega a la pagina del formulario
         When ingresa datos válidos en todos los campos
         Then no debería aparecer ninguna alerta
+
     @FormularioSinDatos
     Scenario: Como un usuario, cuando no ingreso ningun dato en cada campo del formulario, quiero que salten las alertas
         Given el usuario navega a la pagina del formulario
@@ -22,7 +23,7 @@ Feature: Probar la funcionalidad del formulario web.
         | Nombre | 
         | QWE    | 
         | @re$   | 
-        | 2070 |
+        | 2070   |
 
     @FormularioEmail
     Scenario Outline: Como usuario, quiero ver una alerta cuando ingreso un email no válido 

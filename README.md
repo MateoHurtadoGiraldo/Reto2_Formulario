@@ -34,7 +34,7 @@ Para instalar Gradle buscamos en el navegador Gradle Download, esto nos lleva a 
 
 Para saber si tenemos instalado Gradle solo utilizamos el comando gradle --version en el CMD de nuestro computador. 
 
-### Extensiones de VS code
+### Extensiones de VS Code
 Para este proyecto se utilizaron algunas extensiones de VS Code que ayudan a . Las extensiones que vamos a descargar son:
 - Extension Pack for Java
 - Gradle for Java
@@ -89,7 +89,7 @@ Para ejecutar la prueba se utiliza el siguiente comando:
 
 Este comando nos ayuda a ejecutar la prueba desde la cualquier terminal que tengamos disponibles en nuestro equipo (bash, CMD, PowerShell. etc) siempre y cuando estemos en el directorio raiz del proyecto. Tambien podemos ejecutar las pruebas por medio de su tag, al hacerlo solo se va a ejecutar la prueba que nosostros indiquemos por comando.
 
-### Opciones a la hora de correr tags
+### Opciones a la Hora de Correr los Tags
 En este programa hay un total de 6 test y cada uno tiene un tag. Para ejecutar la prueba ponemos el tagque le pertenece a la prueba, por ejemplo:
 
 - **gradle test -Dcucumber.filter.tags="@FormularioCorrecto"** -> Con este comando ejecutamos la prueba que ingresa los datos correctos al formulario y valida que no haya alertas 
@@ -119,7 +119,7 @@ Luego de tener este token vamos a ir a la terminal de Bash para ingresar el coma
 - export CUCUMBER_PUBLISH_TOKEN=some-secret-token (**se debe reemplazar el some-secret-token por el token que les dio Cucumber**)
 
 Al ejecutar las pruebas con el comando "**gradle test**" se subirá automáticamente el reporte a nuestro repositorio. 
-Aquí comparto algunos de mis ejecuciones:
+Aquí comparto algunas de mis ejecuciones:
 
 - https://reports.cucumber.io/reports/7662b34b-fcff-4457-8937-459baa6e16d3
 
@@ -128,3 +128,119 @@ Aquí comparto algunos de mis ejecuciones:
 - https://reports.cucumber.io/reports/b462b028-7c12-43cb-bd38-521c32155f04
 
 - https://reports.cucumber.io/reports/fe29cb4b-c934-4853-8bf0-14e3357b3e59
+
+## ¿Qué Hace Que Esta Automatización Sea una Solución Óptima?
+Esta automatización garantiza una alta cobertura del formulario al validar múltiples escenarios críticos como campos vacíos, datos inválidos, errores ortográficos y el envío exitoso. Además, implementa buenas prácticas como el uso de localizadores robustos y reutilizables, lo cual mejora la estabilidad y mantenibilidad del código. Esto permite detectar tanto errores críticos como problemas menores que podrían afectar la experiencia del usuario.
+
+## Documentación de los Casos de Prueba
+Se realizaron un total de 7 casos de prueba en el lenguaje Gherkin. Estos escenarios validan la funcionalidad crítica del formulario web, alineándose con buenas prácticas de automatización y asegurando una cobertura sólida.
+
+### Formulario completado Correctamente
+- **Objetivo**: Verificar que al ingresar todos los datos válidos, el formulario no genere ninguna alerta.
+- **Precondiciones**: El navegador debe estar abierto en la página del formulario, los campos del formulario deben estar visibles y habilitados.
+- **Alcance**: Verificar que el formulario no genere alertas si todos los datos son válidos.
+- **Estrategia**: Ingresar un conjunto completo de datos válidos en todos los campos del formulario, usar localizadores estables y un flujo continuo de llenado y verificación.
+
+```gherkin
+@FormularioCorrecto
+    Scenario: Como un usuario, cuando ingreso todos los datos correctos en el formulario, quiero ver si no salta ninguna alerta
+        Given el usuario navega a la pagina del formulario
+        When ingresa datos válidos en todos los campos
+        Then no debería aparecer ninguna alerta
+```
+
+### Formulario Sin Datos
+- **Objetivo**: Asegurar que el formulario muestre alertas cuando se envía sin ingresar información.
+- **Precondiciones**: El formulario debe estar vacío al cargar la página.
+- **Alcance**: Verificar el comportamiento de validación por omisión de datos requeridos.
+- **Estrategia**: Simular que el usuario deja los campos vacíos y al clicar cada campo este debe mostrar las alertas.
+
+```gherkin
+@FormularioSinDatos
+    Scenario: Como un usuario, cuando no ingreso ningun dato en cada campo del formulario, quiero que salten las alertas
+        Given el usuario navega a la pagina del formulario
+        When no ingresa datos en los campos
+        Then debería aparecer una alerta en los campos principales
+```
+
+### Validación de Nombre Inválido
+- **Objetivo**: Verificar que el sistema detecte nombres no válidos y muestre una alerta.
+- **Precondiciones**: El formulario debe estar en su estado inicial (sin datos).
+- **Alcance**: Validar que se emita una alerta cuando se ingresan valores no válidos en el campo "nombre".
+- **Estrategia**: Usar un Scenario Outline para probar múltiples valores no válidos y verificar que cada valor genere una alerta específica para el campo.
+
+```gherkin
+@FormularioNombre
+    Scenario Outline: Como un usuario, cuando ingreso un nombre incorrecto, quiero ver si salte una alerta 
+        Given el usuario navega a la pagina del formulario
+        When ingresa el nombre <Nombre>
+        Then debería aparecer una alerta en el campo de nombre
+
+    Examples:
+        | Nombre | 
+        | QWE    | 
+        | @re$   | 
+        | 2070   |
+```
+
+### Validación de Email no Válido
+- **Objetivo**: Comprobar que se generen alertas al ingresar correos con formato incorrecto.
+- **Precondiciones**: El campo de email debe estar vacío y listo para recibir entrada.
+- **Alcance**: Verificar la validación de formato de correo electrónico.
+- **Estrategia**: Probar diferentes correos mal formateados usando Examples y confirmar que se active la validación del formulario en cada caso
+
+```gherkin
+@FormularioEmail
+    Scenario Outline: Como usuario, quiero ver una alerta cuando ingreso un email no válido 
+        Given el usuario navega a la pagina del formulario
+        When ingresa el email <Correo>
+        Then debería aparecer una alerta en el campo de email
+        
+    Examples:
+        | Correo                        | 
+        | toretoCarrera@gmail           | 
+        | toretoCarreragmail.com        | 
+        | toreto!#$&&Carrera@gmail.com  | 
+        | toreto Carrera @gmail .com    |
+```
+
+### Ortografía en los Titulos del Formulario
+- **Objetivo**: Validar que todos los titulos visibles en el formulario tengan ortografía correcta, reforzando la calidad de la interfaz.
+- **Precondiciones**: El formulario debe estar completamente cargado con todos los titulos visibles.
+- **Alcance**: Asegurar que todos los titulos visibles tengan una ortografía correcta.
+- **Estrategia**: Validar el contenido textual de los titulos.
+
+```gherkin
+@FormularioOrtografia
+    Scenario: Como un usuario, cuando estoy en el formulario, quiero ver si la ortografia es correcta
+        Given el usuario navega a la pagina del formulario
+        Then todos los textos del formulario deberian tener la ortografía correcta
+```
+
+### Validación de Envio Correcta del Formulario
+- **Objetivo**: Verificar que al ingresar todos los datos válidos, se pueda enviar el formulario de forma correcta.
+- **Precondiciones**: Los campos del formulario deben estar visibles y habilitados para poder recibir texto.
+- **Alcance**: Verificar que el formulario se envia de forma correcta.
+- **Estrategia**: Ingresar un conjunto completo de datos válidos en todos los campos del formulario.
+
+```gherkin
+@EnviarFormulario @EnviarConDatos
+    Scenario: Como un usuario, cuando ingreso todos los datos correctos en el formulario, quiero poder enviar el formulario
+        Given el usuario navega a la pagina del formulario
+        When ingresa datos válidos en todos los campos
+        Then el formulario se debe enviar de forma correcta
+```
+
+### Validación de no Envio del Formulario
+- **Objetivo**: Validar que al no ingresar datos al formulario, el sistema muestre una alerta.
+- **Precondiciones**: El formulario debe estar vacío al clicar el boton enviar.
+- **Alcance**: Verificar que el formulario no se envia de forma correcta.
+- **Estrategia**: Simular que el usuario deja los campos vacíos y clicar en el botón de envío y verificar que se muestren las alertas esperadas
+
+```gherkin
+@EnviarFormulario @EnviarSinDatos
+    Scenario: Como un usuario, cuando no ingreso datos en el formulario, quiero que al clicar el boton enviar se pueda ver un error
+        Given el usuario navega a la pagina del formulario
+        When no ingresa datos en los campos
+        Then el formulario debe mostrar una alerta
+```

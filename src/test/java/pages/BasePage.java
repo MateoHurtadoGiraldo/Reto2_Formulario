@@ -2,6 +2,7 @@ package pages;
 
 import java.time.Duration;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -84,30 +85,30 @@ public class BasePage {
     }
 
     // Metodo para validar que un elemento es visible
-    public void elementoVisible(String locator, String mensaje) {
+    public void elementoVisible(String localizador, String mensaje) {
         String textoEsperado = mensaje;
-        String textoEncontrado = econtrarElementoCss(locator).getText();
+        String textoEncontrado = econtrarElementoCss(localizador).getText();
         
         Assert.assertTrue(textoEncontrado.contains(textoEsperado));
     }
 
     // Metodo para validad que un elemento no es visible
-    public void elementoNoVisible(String locator, String mensaje) {
+    public void elementoNoVisible(String localizador, String mensaje) {
         String textoEsperado = mensaje;
-        String textoEncontrado = econtrarElementoCss(locator).getText();
+        String textoEncontrado = econtrarElementoCss(localizador).getText();
 
         Assert.assertFalse(textoEncontrado.contains(textoEsperado));
     }
     // Metodo que valida si un elemento web esta presente
-    public void estaPresente(String locator) {
-        WebElement elemento = econtrarElementoCss(locator);
+    public void estaPresente(String localizador) {
+        WebElement elemento = econtrarElementoCss(localizador);
 
         Assert.assertTrue(elemento.isDisplayed());
     }
     
     // Metodo que valida si un elemento web esta no presente
-    public void noPresente(String locator) {
-        WebElement elemento = econtrarElementoCss(locator);
+    public void noPresente(String localizador) {
+        WebElement elemento = econtrarElementoCss(localizador);
 
         Assert.assertFalse(elemento.isDisplayed());
     }
@@ -119,4 +120,23 @@ public class BasePage {
 
         Assert.assertEquals(textoEsperado, textoEncontrado);
     }
+
+    // Metodo para clicar un boton
+    public void clicarBoton(String localizador){
+        econtrarElementoXpath(localizador).click();
+    }
+
+    // Metodo para aceptar un Pop Up
+    public void aceptarPopUp(String mensajeEsperado){
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent()); // Funcion que nos permite manejar los Pop Ups
+        String mensajePopUp = alert.getText();
+        
+        if(mensajePopUp.contains(mensajeEsperado)){
+            Assert.assertTrue(mensajePopUp.contains(mensajePopUp));
+        }
+
+        alert.accept();
+    }
+
+    
 }

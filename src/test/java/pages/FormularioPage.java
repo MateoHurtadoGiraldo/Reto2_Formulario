@@ -18,9 +18,16 @@ public class FormularioPage extends BasePage {
     private String campoAsunto = "asunto"; // Localizador por nombre
     private String alertaAsunto = "#grupo__asunto .formulario__input-error"; // Localizador por Selector Css
 
-
     private String tituloMensaje = "//*[@id=\"formulario\"]/div[5]/label"; // Localizador por Xpath
     private String campoMensaje = "Mensaje"; // Localizador por nombre
+
+    private String btnEnviar = "//button[@type='submit']";
+
+    private String txtNombre = "Camila Torres";
+    private String txtBarrio = "El Pinar";
+    private String txtEmail = "camila.torres.ejemplo@gmail.com";
+    private String txtAsunto = "Solicitud de información";
+    private String txtMensaje = "Buenas tardes, me gustaría recibir más información sobre los servicios que ofrecen y los horarios de atención. Agradezco su pronta respuesta.";
 
     private String mensaje[] = {
         "El nombre debe ser mayor a 4 letras y no debe incluir caracteres especiales", // el indice para este mensaje es el 0
@@ -30,6 +37,7 @@ public class FormularioPage extends BasePage {
     };
 
     private String titulos[] = { "Tu Nombre:", "Tu Email:", "Barrio:", "Asunto:", "Mensaje:" };
+    private String mensajesPopUp[] = {"UPPPPS ALGO HA FALLADO :(", "El Formulario se ha enviado correctamente"};
 
     // Constructor
     public FormularioPage() {
@@ -43,11 +51,11 @@ public class FormularioPage extends BasePage {
 
     // Metodo para llenar los campos de texto del formulario
     public void textoCamposCompleta() {
-        escribir(campoNombre, "Toreto Familia");
-        escribir(campoBarrio, "Rosario");
-        escribir(campoEmail, "toretoCarrera@gmail.com");
-        escribir(campoAsunto, "Saludos a Mis Amigos");
-        escribir(campoMensaje, "Hola amigos, espero se encuentren muy bien. ¿Qué día va a ser la carrera?");
+        escribir(campoNombre, txtNombre);
+        escribir(campoBarrio, txtBarrio);
+        escribir(campoEmail, txtEmail);
+        escribir(campoAsunto, txtAsunto);
+        escribir(campoMensaje, txtMensaje);
     }
 
     // Metodo para hacer que salten las alertas por no ingresar datos al formulario
@@ -60,21 +68,21 @@ public class FormularioPage extends BasePage {
     }
 
     // Metodo para ingresar datos y el nombre con 3 letras
-    public void textoNombre() {
-        escribir(campoNombre, "QWE");
-        escribir(campoBarrio, "Rosario");
-        escribir(campoEmail, "toretoCarrera@gmail.com");
-        escribir(campoAsunto, "Saludos a Mis Amigos");
-        escribir(campoMensaje, "Hola amigos, espero se encuentren muy bien. ¿Qué día va a ser la carrera?");
+    public void textoNombre(String nombre) {
+        escribir(campoNombre, nombre);
+        escribir(campoBarrio, txtBarrio);
+        escribir(campoEmail, txtEmail);
+        escribir(campoAsunto, txtAsunto);
+        escribir(campoMensaje, txtMensaje);
     }
 
     // Metodo para ingresar el Correo con datos faltantes
     public void datosFaltanteEmail(String correo) {
-        escribir(campoNombre, "Toreto Familia");
-        escribir(campoBarrio, "Rosario");
+        escribir(campoNombre, txtNombre);
+        escribir(campoBarrio, txtBarrio);
         escribir(campoEmail, correo);
-        escribir(campoAsunto, "Saludos a Mis Amigos");
-        escribir(campoMensaje, "Hola amigos, espero se encuentren muy bien. ¿Qué día va a ser la carrera?");
+        escribir(campoAsunto, txtAsunto);
+        escribir(campoMensaje, txtMensaje);
     }
 
     // Metodo para validar que aparece una alerta en nombre
@@ -131,5 +139,17 @@ public class FormularioPage extends BasePage {
         encontrarTexto(tituloBarrio, titulos[2]);
         encontrarTexto(tituloAsunto, titulos[3]);
         encontrarTexto(tituloMensaje, titulos[4]);
+    }
+
+    // Metodo para validar que se envio bien un formulario
+    public void envioCorrectoFormulario(){
+        clicarBoton(btnEnviar);
+        aceptarPopUp(mensajesPopUp[1]);
+    }
+
+    // Metodo para validar que se envio bien un formulario
+    public void envioErradoFormulario(){
+        clicarBoton(btnEnviar);
+        aceptarPopUp(mensajesPopUp[0]);
     }
 }

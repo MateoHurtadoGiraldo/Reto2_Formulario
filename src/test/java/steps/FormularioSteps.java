@@ -22,9 +22,9 @@ public class FormularioSteps {
         formulario.sinTextoCampos();
     }
 
-    @When("^ingresa el nombre con 3 letras$")
-    public void datoFaltanteNombre(){
-        formulario.textoNombre();
+    @When("^ingresa el nombre (.*)$")
+    public void datoFaltanteNombre(String nombre){
+        formulario.textoNombre(nombre);
     }
 
     @When("^ingresa el email (.*)$")
@@ -55,5 +55,15 @@ public class FormularioSteps {
     @Then("^todos los textos del formulario deberian tener la ortografía correcta$")
     public void validarOrtografia(){
         formulario.validarTexto();
+    }
+
+    @Then("^el formulario se debe enviar de forma correcta$")
+    public void enviarFormulario(){
+        formulario.envioCorrectoFormulario();
+    }
+
+    @Then("^el formulario debe mostrar una alerta$")
+    public void enviarFormularioVacio(){
+        formulario.envioErradoFormulario();
     }
 }

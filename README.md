@@ -121,13 +121,13 @@ Luego de tener este token vamos a ir a la terminal de Bash para ingresar el coma
 Al ejecutar las pruebas con el comando "**gradle test**" se subirá automáticamente el reporte a nuestro repositorio. 
 Aquí comparto algunas de mis ejecuciones:
 
-- https://reports.cucumber.io/reports/7662b34b-fcff-4457-8937-459baa6e16d3
+- https://reports.cucumber.io/reports/52ee5086-53e0-477d-a9a3-3af3f4de374a -> Reporte de todas las pruebas.
 
-- https://reports.cucumber.io/reports/c8572ef8-68b6-4f79-922c-f15090c9a932
+- https://reports.cucumber.io/reports/c8572ef8-68b6-4f79-922c-f15090c9a932 -> Reporte de prueba que valida que no se pueda envió el formulario vacio.
 
-- https://reports.cucumber.io/reports/b462b028-7c12-43cb-bd38-521c32155f04
+- https://reports.cucumber.io/reports/b462b028-7c12-43cb-bd38-521c32155f04 -> Reporte de prueba que valida emails con errores.
 
-- https://reports.cucumber.io/reports/fe29cb4b-c934-4853-8bf0-14e3357b3e59
+- https://reports.cucumber.io/reports/fe29cb4b-c934-4853-8bf0-14e3357b3e59 -> Reporte de prueba que valida nombres con errores.
 
 ## ¿Qué Hace Que Esta Automatización Sea una Solución Óptima?
 Esta automatización garantiza una alta cobertura del formulario al validar múltiples escenarios críticos como campos vacíos, datos inválidos, errores ortográficos y el envío exitoso. Además, implementa buenas prácticas como el uso de localizadores robustos y reutilizables, lo cual mejora la estabilidad y mantenibilidad del código. Esto permite detectar tanto errores críticos como problemas menores que podrían afectar la experiencia del usuario.

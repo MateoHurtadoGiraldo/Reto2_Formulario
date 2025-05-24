@@ -133,6 +133,8 @@ public class BasePage {
         
         if(mensajePopUp.contains(mensajeEsperado)){
             Assert.assertTrue(mensajePopUp.contains(mensajePopUp));
+        }else{
+            Assert.assertTrue(false);
         }
 
         alert.accept();
